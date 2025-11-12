@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Arte: A Ilusão da Resposta Fácil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo CSS para um design "bonito e elaborado" */
+        :root {
+            --cor-principal: #3a1c71; /* Roxo profundo */
+            --cor-secundaria: #d76d77; /* Rosa antigo */
+            --cor-fundo: #f4f4f9; /* Branco suave */
+            --cor-texto: #333;
+            --cor-sombra: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--cor-fundo) 0%, #e0eafc 100%);
+            color: var(--cor-texto);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px var(--cor-sombra);
+            max-width: 700px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--cor-principal);
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--cor-secundaria);
+            padding-bottom: 10px;
+        }
+
+        #question-box {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #question {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--cor-principal);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: var(--cor-fundo);
+            border: 2px solid var(--cor-principal);
+            color: var(--cor-texto);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .option:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--cor-sombra);
+        }
+
+        .option.correct {
+            background-color: #a8e6cf; /* Verde suave */
+            border-color: #38a169;
+            color: #1a4d33;
+        }
+
+        .option.incorrect {
+            background-color: #ff8b94; /* Vermelho suave */
+            border-color: #c53030;
+            color: #5c1818;
+        }
+
+        #next-btn {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: 700;
+            background-color: var(--cor-secundaria);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #next-btn:hover {
+            background-color: #c25a66;
+        }
+
+        #result-box {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--cor-principal);
+            padding-top: 20px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .quiz-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>🖼️ A Ilusão da Resposta Fácil</h1>
+        <div id="question-box">
+            <p id="question">Carregando pergunta...</p>
+            <div class="options-grid" id="options-container">
+                </div>
+        </div>
+        
+        <button id="next-btn">PRÓXIMA PERGUNTA</button>
+
+        <div id="result-box">
+            </div>
+    </div>
+
+    <script>
+        // Lógica JavaScript para o Quiz
+        const questions = [
+            {
+                // Pergunta de "confusão" fácil: O que é a Mona Lisa? Obras famosas são fáceis.
+                question: "Se a arte é apenas a imitação da realidade, qual é a representação máxima da não-realidade na obra que permanentemente nos observa com seu sorriso enigmático, desafiando a própria lógica da emoção?",
+                options: ["O Grito, de Munch", "A Última Ceia, de Da Vinci", "Mona Lisa, de Da Vinci", "Noite Estrelada, de Van Gogh"],
+                answer: "Mona Lisa, de Da Vinci"
+            },
+            {
+                // Pergunta de "confusão" fácil: Cor primária.
+                question: "Na teoria da cor, qual tonalidade que, por sua natureza pura e irredutível, simboliza a ausência de outras cores, mas é fundamental para compor a melancolia de um céu após a chuva ou a profundidade de um abismo desconhecido?",
+                options: ["Verde", "Amarelo", "Roxo", "Cian (ou Azul)"],
+                answer: "Cian (ou Azul)"
+            },
+            {
+                // Pergunta de "confusão" fácil: Movimento.
+                question: "Qual movimento artístico do século XIX buscou capturar a 'impressão' fugaz de um momento, o instante efêmero da luz e da cor, em oposição à rigidez formal, como se a tela fosse um mero rascunho de uma percepção sensorial incompleta?",
+                options: ["Cubismo", "Surrealismo", "Impressionismo", "Barroco"],
+                answer: "Impressionismo"
+            },
+            {
+                // Pergunta de "confusão" fácil: Material.
+                question: "Para criar a ilusão de profundidade e o brilho iridescente que captura a luz de forma singular, qual material é frequentemente usado como um agente de ligação para pigmentos, tornando a cor transparente e permitindo camadas que parecem respirar?",
+                options: ["Óleo (Tinta a óleo)", "Aquarela", "Giz Pastel", "Grafite"],
+                answer: "Óleo (Tinta a óleo)"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizActive = true;
+
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const nextButton = document.getElementById('next-btn');
+        const resultBox = document.getElementById('result-box');
+
+        // Função principal para carregar a pergunta
+        function loadQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResult();
+                return;
+            }
+            
+            // Resetar o estado da tela
+            optionsContainer.innerHTML = '';
+            nextButton.style.display = 'none';
+            resultBox.innerHTML = '';
+            quizActive = true;
+
+            const currentQ = questions[currentQuestionIndex];
+            questionElement.textContent = currentQ.question;
+
+            // Criar as opções dinamicamente
+            currentQ.options.forEach(optionText => {
+                const optionDiv = document.createElement('div');
+                optionDiv.classList.add('option');
+                optionDiv.textContent = optionText;
+                optionDiv.addEventListener('click', () => checkAnswer(optionText, currentQ.answer, optionDiv));
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        // Função para verificar a resposta
+        function checkAnswer(selectedOption, correctAnswer, element) {
+            if (!quizActive) return; // Impede cliques múltiplos
+
+            quizActive = false;
+            
+            const allOptions = optionsContainer.querySelectorAll('.option');
+            allOptions.forEach(opt => {
+                // Marcar todas as opções como indisponíveis
+                opt.style.pointerEvents = 'none'; 
+                
+                // Realçar a resposta correta e a selecionada
+                if (opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+
+            if (selectedOption === correctAnswer) {
+                element.classList.add('correct');
+                score++;
+            } else {
+                element.classList.add('incorrect');
+            }
+
+            nextButton.style.display = 'block';
+        }
+
+        // Função para ir para a próxima pergunta
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+
+        // Função para mostrar o resultado final
+        function showResult() {
+            questionElement.textContent = `FIM DO QUIZ!`;
+            optionsContainer.innerHTML = '';
+            nextButton.style.display = 'none';
+
+            resultBox.innerHTML = `
+                Sua Pontuação Final: ${score} de ${questions.length}<br>
+                <span style="font-size: 0.8em; font-weight: 400; color: var(--cor-secundaria);">
+                    As respostas eram simples, mas a arte... a arte é complexa.
+                </span>
+            `;
+
+            // Adiciona a opção de reiniciar
+            const restartButton = document.createElement('button');
+            restartButton.textContent = 'REINICIAR QUIZ';
+            restartButton.style.cssText = 'padding: 10px 20px; margin-top: 20px; background-color: var(--cor-principal); color: white; border: none; border-radius: 8px; cursor: pointer;';
+            restartButton.addEventListener('click', () => {
+                currentQuestionIndex = 0;
+                score = 0;
+                loadQuestion();
+                resultBox.innerHTML = '';
+            });
+            resultBox.appendChild(restartButton);
+        }
+
+        // Inicia o Quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
